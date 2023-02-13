@@ -13,7 +13,7 @@ class Boundary {
         this.height= 40
     }
     draw() {
-        c.fillStyle = 'blue'
+        c.fillStyle = 'white'
         c.fillRect(this.position.x, this.position.y, this.width,this.height )
 
     }
@@ -31,7 +31,7 @@ class Player {
         c.beginPath()
         c.arc(this.position.x, this.position.y, this.radius, 0,
           Math.PI * 2 )
-        c.fillStyle = 'yellow'
+        c.fillStyle = 'pink'
         c.fill()
         c.closePath ()
 

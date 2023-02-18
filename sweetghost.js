@@ -7,14 +7,17 @@ canvas.height = innerHeight
 class Boundary {
     static width = 40
     static height = 40
-    constructor({position, velocity},) {
+    constructor({position, image},) {
         this.position = position 
         this.width= 40
         this.height= 40
+        this.image = image
     }
     draw() {
-        c.fillStyle = 'white'
-        c.fillRect(this.position.x, this.position.y, this.width,this.height )
+       /// c.fillStyle = 'white'
+      ///c.fillRect(this.position.x, this.position.y, this.width,this.height )
+
+      c.drawImage(this.image,this.position.x, this.position.y)
 
     }
 }
@@ -78,11 +81,15 @@ let lastKey =''
 
 const map= [
     ['-','-','-','-','-','-','-'],
-    ['-',' ',' ',' ',' ',' ','-'],  
+    ['|',' ',' ',' ',' ',' ','-'],  
     ['-',' ','-',' ','-',' ','-'],  
+    ['-',' ',' ',' ',' ',' ','-'],
+    ['-',' ','-',' ','-',' ','-'],
     ['-',' ',' ',' ',' ',' ','-'],
     ['-','-','-','-','-','-','-']
   ]
+  const image= new Image ()
+  image.src = './img/cuad.png'
 
 
 map.forEach((row, i) => {
@@ -95,7 +102,8 @@ map.forEach((row, i) => {
               x: Boundary.width * j,
               y: Boundary.height * i 
 
-           }
+           }, 
+           image: image
          })
         )
         break
@@ -125,28 +133,7 @@ function animate() {
   if (keys.w.pressed && lastKey === 'w' ) {
     for (let i = 0; i < boundaries.length; i++ ) { 
       const boundary = boundaries[i]
-    if (
-      circleCollidesWithRectangle({
-      circle:{...player, velocity: {
-        x: 0,
-        y:-5
-      }
-    },
-      rectangle: boundary
-    })
-    ) {
-      player.velocity.y= 0
-      break
-    } else {
-      player.velocity.y= -5
-    }
-  }
-
-  } else if (keys.a.pressed && lastKey === 'a') {
-    player.velocity.x = -5
-  } else if (keys.s.pressed && lastKey === 's') {
-    for (let i = 0; i < boundaries.length; i++ ) { 
-      const boundary = boundaries[i]
+    
     if (
       circleCollidesWithRectangle({
       circle:{
@@ -162,12 +149,76 @@ function animate() {
       player.velocity.y= 0
       break
     } else {
+      player.velocity.y= -5
+    }
+  }
+
+  } else if (keys.a.pressed && lastKey === 'a') {
+    for (let i = 0; i < boundaries.length; i++ ) { 
+      const boundary = boundaries[i]
+    
+    if (
+      circleCollidesWithRectangle({
+      circle:{
+        ...player, 
+        velocity: {
+        x: -5,
+        y: 0
+      }
+    },
+      rectangle: boundary
+    })
+    ) {
+      player.velocity.x= 0
+      break
+    } else {
+      player.velocity.x= -5
+    }
+  }
+  } else if (keys.s.pressed && lastKey === 's') {
+    for (let i = 0; i < boundaries.length; i++ ) { 
+      const boundary = boundaries[i]
+    if (
+      circleCollidesWithRectangle({
+      circle:{
+        ...player, 
+        velocity: {
+        x: 0,
+        y:5
+      }
+    },
+      rectangle: boundary
+    })
+    ) {
+      player.velocity.y= 0
+      break
+    } else {
       player.velocity.y= 5
     }
   }
 
   } else if (keys.d.pressed && lastKey === 'd') {
-    player.velocity.x = 5
+    for (let i = 0; i < boundaries.length; i++ ) { 
+      const boundary = boundaries[i]
+    
+    if (
+      circleCollidesWithRectangle({
+      circle:{
+        ...player, 
+        velocity: {
+        x: 5,
+        y: 0
+      }
+    },
+      rectangle: boundary
+    })
+    ) {
+      player.velocity.x= 0
+      break
+    } else {
+      player.velocity.x= 5
+    }
+  }
   }  
 
   boundaries.forEach((boundary) => {

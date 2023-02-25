@@ -79,6 +79,7 @@ const keys= {
 
 let lastKey =''
 
+
 const map = [
   ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
   ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
@@ -114,6 +115,7 @@ map.forEach((row, i) => {
               y: Boundary.height * i 
 
            }, 
+
            image: createImage('./img/cuad.png')
          })
         )
@@ -297,6 +299,8 @@ map.forEach((row, i) => {
               })
             })
  
+
+
 function circleCollidesWithRectangle({
   circle,
   rectangle

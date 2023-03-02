@@ -1,4 +1,4 @@
-const canvas= document. querySelector('canvas')
+zconst canvas= document. querySelector('canvas')
 const c = canvas.getContext('2d')
 
 const scoreEl= document. querySelector('#scoreEl')
@@ -100,6 +100,29 @@ const keys= {
 
 let lastKey =''
 let score= 0
+
+
+const map = [
+  ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
+  ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
+  ['|', '.', 'b', '.', '[', '7', ']', '.', 'b', '.', '|'],
+  ['|', '.', '.', '.', '.', '_', '.', '.', '.', '.', '|'],
+  ['|', '.', '[', ']', '.', '.', '.', '[', ']', '.', '|'],
+  ['|', '.', '.', '.', '.', '^', '.', '.', '.', '.', '|'],
+  ['|', '.', 'b', '.', '[', '+', ']', '.', 'b', '.', '|'],
+  ['|', '.', '.', '.', '.', '_', '.', '.', '.', '.', '|'],
+  ['|', '.', '[', ']', '.', '.', '.', '[', ']', '.', '|'],
+  ['|', '.', '.', '.', '.', '^', '.', '.', '.', '.', '|'],
+  ['|', '.', 'b', '.', '[', '5', ']', '.', 'b', '.', '|'],
+  ['|', '.', '.', '.', '.', '.', '.', '.', '.', 'p', '|'],
+  ['4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '3']
+]
+
+  function createImage(src){
+    const image= new Image ()
+    image.src = src
+    return image 
+  }
 
 
 const map = [
@@ -316,16 +339,6 @@ map.forEach((row, i) => {
                                       })
                                     )
                                     break
-                                    case '.':
-                                      pellets.push(
-                                        new Pellet({
-                                          position: {
-                                            x: j * Boundary.width + Boundary.width /2,
-                                            y: i * Boundary.height + Boundary.height /2
-                                          }
-                                        })
-                                      )
-                                      break
                               
                 }
               })

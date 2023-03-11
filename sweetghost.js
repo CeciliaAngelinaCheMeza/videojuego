@@ -1,4 +1,4 @@
-zconst canvas= document. querySelector('canvas')
+const canvas= document. querySelector('canvas')
 const c = canvas.getContext('2d')
 
 const scoreEl= document. querySelector('#scoreEl')
@@ -50,6 +50,35 @@ class Player {
     }
 
 }
+
+class Ghost {
+  constructor ({position, velocity, color = 'red' }) {
+      this.position = position
+      this.velocity = velocity
+      this.radius = 15
+      this.color= color
+      this.prevCollisions = []
+
+  }
+
+  draw (){
+      c.beginPath()
+      c.arc(this.position.x, this.position.y, this.radius, 0,
+        Math.PI * 2 )
+      c.fillStyle = 'this.color'
+      c.fill()
+      c.closePath ()
+
+  }
+
+  update() {
+    this.draw()
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
+  }
+
+}
+
 class Pellet {
   constructor ({position }) {
       this.position = position
@@ -71,6 +100,18 @@ class Pellet {
 
 const pellets = []
 const boundaries= []
+const ghosts = [
+  new Ghost ({
+    position: {
+      x:Boundary.width * 6 + Boundary.width/2,
+      y:Boundary.height  + Boundary.height/2
+    },
+    velocity: {
+      x: 5,
+      y: 0
+    }
+  })
+]
 const player = new Player({
     position: {
         x:Boundary.width + Boundary.width/2,
@@ -101,28 +142,6 @@ const keys= {
 let lastKey =''
 let score= 0
 
-
-const map = [
-  ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
-  ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
-  ['|', '.', 'b', '.', '[', '7', ']', '.', 'b', '.', '|'],
-  ['|', '.', '.', '.', '.', '_', '.', '.', '.', '.', '|'],
-  ['|', '.', '[', ']', '.', '.', '.', '[', ']', '.', '|'],
-  ['|', '.', '.', '.', '.', '^', '.', '.', '.', '.', '|'],
-  ['|', '.', 'b', '.', '[', '+', ']', '.', 'b', '.', '|'],
-  ['|', '.', '.', '.', '.', '_', '.', '.', '.', '.', '|'],
-  ['|', '.', '[', ']', '.', '.', '.', '[', ']', '.', '|'],
-  ['|', '.', '.', '.', '.', '^', '.', '.', '.', '.', '|'],
-  ['|', '.', 'b', '.', '[', '5', ']', '.', 'b', '.', '|'],
-  ['|', '.', '.', '.', '.', '.', '.', '.', '.', 'p', '|'],
-  ['4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '3']
-]
-
-  function createImage(src){
-    const image= new Image ()
-    image.src = src
-    return image 
-  }
 
 
 const map = [
@@ -339,6 +358,16 @@ map.forEach((row, i) => {
                                       })
                                     )
                                     break
+                                    case '.':
+                                      pellets.push(
+                                        new Pellet({
+                                          position: {
+                                            x: j * Boundary.width + Boundary.width /2,
+                                            y: i * Boundary.height + Boundary.height /2
+                                          },
+                                        })
+                                      )
+                                      break
                               
                 }
               })
@@ -460,13 +489,17 @@ for (let i = pellets.length -1; 0< i; i--) {
   const pellet= pellets[i]
   pellet.draw ()
 
-  if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y)< pellet.radius + player.radius){
+  if (Math.hypot(
+    pellet.position.x - player.position.x,
+     pellet.position.y - player.position.y
+     )< 
+     pellet.radius + player.radius
+     ){
     pellets.splice(i, 1 )
     score += 10
     scoreEl.innerHTML = score
   }
 }
-  
 
 
   boundaries.forEach((boundary) => {
@@ -487,8 +520,108 @@ for (let i = pellets.length -1; 0< i; i--) {
   })
   
   player.update()
-  //player.velocity.x = 0
-  //player.velocity.y = 0
+  
+  ghosts.forEach(ghost => {
+    ghost.update()
+
+    const collisions = []
+
+    boundaries.forEach(boundary => {
+      if (
+        !collisions.includes('right') &&
+        circleCollidesWithRectangle({
+        circle:{
+          ...ghost, 
+          velocity: {
+          x: 5,
+          y: 0
+        }
+      },
+        rectangle: boundary
+      })
+      ){
+        collisions.push('right')
+
+      }
+
+      if (
+        !collisions.includes('left') &&
+        circleCollidesWithRectangle({
+        circle:{
+          ...ghost, 
+          velocity: {
+          x: -5,
+          y: 0
+        }
+      },
+        rectangle: boundary
+      })
+      ){
+        collisions.push('left')
+
+      }
+
+      if (
+        !collisions.includes('up') &&
+        circleCollidesWithRectangle({
+        circle:{
+          ...ghost, 
+          velocity: {
+          x: 0,
+          y: -5
+        }
+      },
+        rectangle: boundary
+      })
+      ){
+        collisions.push('up')
+
+      }
+      if (
+        !collisions.includes('down') &&
+        circleCollidesWithRectangle({
+        circle:{
+          ...ghost, 
+          velocity: {
+          x: 0,
+          y: 5
+        }
+      },
+        rectangle: boundary
+      })
+      ){
+        collisions.push('down')
+
+      }
+
+
+    })
+
+    if (collisions. length > ghost.prevCollisions.length)
+      ghost.prevCollisions = collisions
+
+    if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) {
+      //console.log('gogo')
+
+      
+      if (ghost.velocity.x > 0) ghost.prevCollisions.push('right')
+      else if (ghost.velocity.x < 0) ghost.prevCollisions.push('left')
+      else if (ghost.velocity.y < 0) ghost.prevCollisions.push('up')
+      else if (ghost.velocity.y > 0) ghost.prevCollisions.push('down')
+
+      console.log(collisions)
+      console.log(ghost.prevCollisions)
+
+      const pathways = ghost.prevCollisions.filter((collision)
+        => {
+          return !collisions.includes(collision)  
+        })
+        console.log({ pathways })
+
+        const direction = pathways[Math.floor(Math.random() * pathways.lenght)]
+    }
+    //console.log(collisions)
+  })
 
 
 }

@@ -145,7 +145,7 @@ header {
 }
 
 .nav-link:hover {
-    color: #3bcc75;
+    color:rgb(149, 211, 247);
 }
 
 /*Hero*/
@@ -164,7 +164,7 @@ header {
 .h2-sub {
     font-size: 3rem;
     font-family: 'Poppins', sans-serif;
-    color: #3bcc75;
+    color: rgba(159, 84, 189, 0.8);
     font-weight: 600;
     line-height: .4;
 }
@@ -185,7 +185,7 @@ header {
 
 .circle {
     font-size: 1.5rem;
-    color: #3bcc75;
+    color: rgba(159, 84, 189, 0.8);
     margin: 0 1.6rem;
 }
 
@@ -217,7 +217,7 @@ header {
 .cta-btn:hover,
 .cta-btn:focus {
     color: #fff;
-    background-color: #3bcc75;
+    background-color: rgba(159, 84, 189, 0.8);
 }
 
 
@@ -231,7 +231,7 @@ header {
 }
 
 .global .circle {
-    color: #3bcc75;
+    color: rgba(159, 84, 189, 0.8);
     margin: 2.4rem 0;
 }
 
@@ -263,7 +263,7 @@ header {
 /*menu*/
 
 .taste {
-    background: url("img/space3.png") center no-repeat;
+    background: url("img/5509862.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -287,10 +287,6 @@ header {
     margin-bottom: 0;
 }
 
-.pb {
-    background: url("img/space3.png") center no-repeat;
-    background-size: cover;
-}
 
 
 /*footer*/
@@ -335,7 +331,7 @@ footer {
 
 .social-icons i {
     font-size: 2rem;
-    color: #3bcc75;
+    color: blue;
     padding: .8rem 2rem;
     
 }
@@ -495,5 +491,9 @@ footer {
 
 
    }
-    
+
+   .conteiner p{
+       text-justify: inter-word;
+   }
+
 }

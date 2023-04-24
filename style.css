@@ -273,6 +273,16 @@ header {
     align-items: center;
 }
 
+.tasti {
+    background: url("img/SOBRE\ NOSOTRAS.png") center no-repeat;
+    background-size: cover;
+}
+
+.bi {
+    min-height: 65vh;
+    display: flex;
+    align-items: center;
+}
 
 /*platillos*/
 

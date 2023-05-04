@@ -54,7 +54,10 @@ class Player {
        c.arc(this.position.x, this.position.y, this.radius, this.radians,
          Math.PI * 2 - this.radians )
          c.lineTo(this.position.x, this.position.y)
+
        c.fillStyle = 'purple'
+
+
        c.fill()
        c.closePath ()
        c.restore()

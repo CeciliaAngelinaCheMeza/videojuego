@@ -271,18 +271,11 @@ header {
     min-height: 65vh;
     display: flex;
     align-items: center;
+
 }
 
-.tasti {
-    background: url("img/SOBRE\ NOSOTRAS.png") center no-repeat;
-    background-size: cover;
-}
 
-.bi {
-    min-height: 65vh;
-    display: flex;
-    align-items: center;
-}
+
 
 /*platillos*/
 
@@ -297,6 +290,10 @@ header {
     margin-bottom: 0;
 }
 
+.pb {
+    background: url("img/espacio.png") center no-repeat;
+    background-size: cover;
+}
 
 
 /*footer*/
@@ -505,5 +502,79 @@ footer {
    .conteiner p{
        text-justify: inter-word;
    }
-
+   .flip-container {
+    float: left;
+    margin-left: 500px;
+    margin-right: 50px;
+    perspective: 1000px;
+    position: relative;
+    width: 400px;
+    height: 400px;
+   
+  }
+  
+  .flipper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+  
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  
+  .front {
+    transform: rotateY(0deg);
+  }
+  
+  .back {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-container:hover .flipper {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-containerr {
+    
+    perspective: 1000px;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+      
+  }
+  
+  .flipperr {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+  
+  .frontt, .backk {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  
+  .frontt {
+    transform: rotateY(0deg);
+  }
+  
+  .backk {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-containerr:hover .flipperr {
+    transform: rotateY(180deg);
+  }
+  
+   
 }
